@@ -1,7 +1,12 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
-import { flavorGroups, packaging, WHATSAPP_NUMBER } from "./order-data";
+import {
+  flavorCatalog,
+  flavorGroups,
+  packaging,
+  WHATSAPP_NUMBER,
+} from "./order-data";
 import styles from "./pedidos.module.css";
 
 type Quantities = Record<string, number>;
@@ -105,6 +110,21 @@ export default function OrderForm() {
     .map((item) => ({ item, quantity: quantities[quantityKey("envases", item)] ?? 0 }))
     .filter(({ quantity }) => quantity > 0);
 
+  const listenUrl = useMemo(() => {
+    const encodedOrder = flavorCatalog
+      .flatMap((entry, index) => {
+        const quantity = quantities[quantityKey(entry.groupId, entry.item)] ?? 0;
+        return quantity > 0
+          ? [`${index.toString(36)}.${quantity.toString(36)}`]
+          : [];
+      })
+      .join(",");
+
+    return encodedOrder
+      ? `https://fullcream.online/e/?p=${encodedOrder}`
+      : "";
+  }, [quantities]);
+
   const buildMessage = () => {
     const lines = [
       "*PEDIDO FULL CREAM*",
@@ -131,6 +151,8 @@ export default function OrderForm() {
       lines.push("", "*ENVASES*");
       selectedPackaging.forEach(({ item, quantity }) => lines.push(`• ${item}: ${quantity}`));
     }
+
+    if (listenUrl) lines.push("", `Escuchar 🔊 ${listenUrl}`);
 
     return lines.join("\n");
   };
