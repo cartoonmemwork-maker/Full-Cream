@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import OrderTruckIcon from "../components/OrderTruckIcon";
 import OrderForm from "./OrderForm";
 import styles from "./pedidos.module.css";
 
@@ -37,8 +38,10 @@ export default function OrdersPage() {
       <main className={styles.page} id="contenido-pedidos">
         <section className={styles.orderHero}>
           <div className="container">
-            <p className={styles.eyebrow}>Pedidos para clientes</p>
-            <h1>Armá tu pedido</h1>
+            <div className={styles.orderHeroHeading}>
+              <h1>Armá tu pedido</h1>
+              <OrderTruckIcon className={styles.orderTruck} />
+            </div>
             <p>
               Seleccioná la cantidad de baldes de 15 litros y los envases que necesitás.
               Al finalizar, preparamos el mensaje para enviarlo por WhatsApp.
