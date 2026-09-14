@@ -549,6 +549,54 @@ h1 em {
   vertical-align: 0.1em;
 }
 
+.order-entry {
+  display: flex;
+  margin-top: 1.25rem;
+  padding: 1.6rem 1.75rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  border: 1px solid rgba(5, 37, 101, 0.14);
+  border-radius: var(--radius);
+  background: var(--blue-deep);
+  color: white;
+  box-shadow: 0 16px 36px rgba(5, 37, 101, 0.1);
+}
+
+.order-entry-label {
+  margin: 0 0 0.3rem;
+  color: var(--peach-light);
+  font-size: 0.66rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.order-entry h3 {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3vw, 2.35rem);
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+.order-entry div > p:last-child {
+  max-width: 620px;
+  margin: 0.55rem 0 0;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.88rem;
+}
+
+.order-entry-button {
+  flex: 0 0 auto;
+  background: var(--peach);
+  color: var(--blue-deep);
+}
+
+.order-entry-button:hover {
+  background: var(--peach-light);
+}
+
 .start {
   padding: 5rem 0;
   background:
@@ -750,6 +798,15 @@ footer {
     columns: 1;
     padding-inline: 1.25rem;
   }
+
+  .order-entry {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.35rem;
+  }
+
+  .order-entry-button { width: 100%; }
 
   .start { padding: 4.2rem 0; }
 

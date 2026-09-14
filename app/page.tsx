@@ -145,6 +145,7 @@ export default function Home() {
 
           <nav aria-label="Navegación principal">
             <a href="#sabores">Sabores</a>
+            <a href="/pedidos">Pedidos</a>
             <a href="#heladeria">Abrí tu heladería</a>
             <a href="#contacto">Ubicación</a>
           </nav>
@@ -225,6 +226,17 @@ export default function Home() {
                   </ul>
                 </details>
               ))}
+            </div>
+
+            <div className="order-entry">
+              <div>
+                <p className="order-entry-label">Clientes Full Cream</p>
+                <h3>Armá tu pedido online</h3>
+                <p>Elegí sabores, baldes de 15 litros y envases. Te preparamos el mensaje para WhatsApp.</p>
+              </div>
+              <a className="button order-entry-button" href="/pedidos">
+                Hacer un pedido
+              </a>
             </div>
           </div>
         </section>
