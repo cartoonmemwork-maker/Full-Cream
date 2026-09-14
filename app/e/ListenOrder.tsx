@@ -1,17 +1,26 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { flavorCatalog } from "../pedidos/order-data";
+import { flavorCatalog, packaging } from "../pedidos/order-data";
 import styles from "./escuchar.module.css";
+
+type ListenKind = "flavor" | "packaging";
 
 type ListenItem = {
   item: string;
   quantity: number;
+  kind: ListenKind;
 };
 
 type PlaybackState = "idle" | "playing" | "paused" | "finished";
 
-function decodeOrder(value: string | null): ListenItem[] {
+const flavorNames = flavorCatalog.map((entry) => entry.item);
+
+function decodeSelection(
+  value: string | null,
+  catalog: readonly string[],
+  kind: ListenKind,
+): ListenItem[] {
   if (!value) return [];
 
   const items: ListenItem[] = [];
@@ -23,18 +32,18 @@ function decodeOrder(value: string | null): ListenItem[] {
     const [rawIndex, rawQuantity] = token.split(".");
     const index = Number.parseInt(rawIndex, 36);
     const quantity = Number.parseInt(rawQuantity, 36);
-    const entry = flavorCatalog[index];
+    const item = catalog[index];
 
     if (
       Number.isSafeInteger(index) &&
       Number.isSafeInteger(quantity) &&
-      entry &&
+      item !== undefined &&
       !seen.has(index) &&
       quantity > 0 &&
       quantity <= 999
     ) {
       seen.add(index);
-      items.push({ item: entry.item, quantity });
+      items.push({ item, quantity, kind });
     }
   });
 
@@ -48,9 +57,32 @@ function spokenFlavor(name: string) {
     .replace("Wisky", "Whisky");
 }
 
+const packagingPronunciations: Record<string, string> = {
+  "Térmico 1/8 Kg x 50U": "Térmico de un octavo de kilo por cincuenta unidades",
+  "Térmico 1/4 Kg x 20U": "Térmico de un cuarto de kilo por veinte unidades",
+  "Térmico 1/2 Kg x 20U": "Térmico de medio kilo por veinte unidades",
+  "Térmico 1 Kg x 20U": "Térmico de un kilo por veinte unidades",
+};
+
+function spokenPackaging(name: string) {
+  return (packagingPronunciations[name] ?? name).replace(/N°\s*/g, "número ");
+}
+
+function itemUnit(item: ListenItem) {
+  if (item.kind === "packaging") {
+    return item.quantity === 1 ? "un paquete" : item.quantity + " paquetes";
+  }
+
+  return item.quantity === 1 ? "un balde" : item.quantity + " baldes";
+}
+
 function spokenLine(item: ListenItem) {
-  const buckets = item.quantity === 1 ? "un balde" : item.quantity + " baldes";
-  return spokenFlavor(item.item) + " " + buckets + ".";
+  const name =
+    item.kind === "packaging"
+      ? spokenPackaging(item.item)
+      : spokenFlavor(item.item);
+
+  return name + " " + itemUnit(item) + ".";
 }
 
 export default function ListenOrder() {
@@ -65,7 +97,9 @@ export default function ListenOrder() {
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
-    setItems(decodeOrder(params.get("p")));
+    const flavors = decodeSelection(params.get("p"), flavorNames, "flavor");
+    const envases = decodeSelection(params.get("e"), packaging, "packaging");
+    setItems([...flavors, ...envases]);
     setSupported(
       "speechSynthesis" in window && "SpeechSynthesisUtterance" in window,
     );
@@ -174,7 +208,7 @@ export default function ListenOrder() {
   if (items.length === 0) {
     return (
       <div className={styles.empty}>
-        <strong>Este enlace no contiene sabores</strong>
+        <strong>Este enlace no contiene productos</strong>
         <p>Pedile al remitente que vuelva a generar el pedido.</p>
       </div>
     );
@@ -268,6 +302,45 @@ export default function ListenOrder() {
   );
 }
 
+function OrderSection({
+  title,
+  items,
+  currentIndex,
+  offset,
+}: {
+  title: string;
+  items: ListenItem[];
+  currentIndex: number;
+  offset: number;
+}) {
+  return (
+    <section className={styles.listSection}>
+      <div className={styles.listHeading}>
+        <h2>{title}</h2>
+        <span>
+          {items.length} {items.length === 1 ? "seleccionado" : "seleccionados"}
+        </span>
+      </div>
+      <ol className={styles.orderList}>
+        {items.map((item, index) => {
+          const absoluteIndex = offset + index;
+
+          return (
+            <li
+              className={styles.orderItem}
+              data-active={currentIndex === absoluteIndex || undefined}
+              key={item.kind + "::" + item.item}
+            >
+              <span className={styles.flavorName}>{item.item}</span>
+              <span className={styles.bucketCount}>{itemUnit(item)}</span>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  );
+}
+
 function OrderList({
   items,
   currentIndex,
@@ -275,26 +348,27 @@ function OrderList({
   items: ListenItem[];
   currentIndex: number;
 }) {
+  const flavors = items.filter((item) => item.kind === "flavor");
+  const envases = items.filter((item) => item.kind === "packaging");
+
   return (
     <>
-      <div className={styles.listHeading}>
-        <h2>Sabores</h2>
-        <span>{items.length} seleccionados</span>
-      </div>
-      <ol className={styles.orderList}>
-        {items.map((item, index) => (
-          <li
-            className={styles.orderItem}
-            data-active={currentIndex === index || undefined}
-            key={item.item}
-          >
-            <span className={styles.flavorName}>{item.item}</span>
-            <span className={styles.bucketCount}>
-              {item.quantity === 1 ? "un balde" : item.quantity + " baldes"}
-            </span>
-          </li>
-        ))}
-      </ol>
+      {flavors.length > 0 && (
+        <OrderSection
+          title="Sabores"
+          items={flavors}
+          currentIndex={currentIndex}
+          offset={0}
+        />
+      )}
+      {envases.length > 0 && (
+        <OrderSection
+          title="Envases"
+          items={envases}
+          currentIndex={currentIndex}
+          offset={flavors.length}
+        />
+      )}
     </>
   );
 }
