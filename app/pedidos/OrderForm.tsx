@@ -111,7 +111,7 @@ export default function OrderForm() {
     .filter(({ quantity }) => quantity > 0);
 
   const listenUrl = useMemo(() => {
-    const encodedOrder = flavorCatalog
+    const encodedFlavors = flavorCatalog
       .flatMap((entry, index) => {
         const quantity = quantities[quantityKey(entry.groupId, entry.item)] ?? 0;
         return quantity > 0
@@ -120,8 +120,24 @@ export default function OrderForm() {
       })
       .join(",");
 
-    return encodedOrder
-      ? `https://fullcream.online/e/?p=${encodedOrder}`
+    const encodedPackaging = packaging
+      .flatMap((item, index) => {
+        const quantity = quantities[quantityKey("envases", item)] ?? 0;
+        return quantity > 0
+          ? [`${index.toString(36)}.${quantity.toString(36)}`]
+          : [];
+      })
+      .join(",");
+
+    const encodedParams = [
+      encodedFlavors ? `p=${encodedFlavors}` : "",
+      encodedPackaging ? `e=${encodedPackaging}` : "",
+    ]
+      .filter(Boolean)
+      .join("&");
+
+    return encodedParams
+      ? `https://fullcream.online/e/?${encodedParams}`
       : "";
   }, [quantities]);
 
