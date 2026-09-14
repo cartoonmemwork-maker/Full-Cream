@@ -23,6 +23,8 @@ html {
 
 body {
   margin: 0;
+  max-width: 100%;
+  overflow-x: hidden;
   padding-top: 4.75rem;
   background: var(--cream);
   color: var(--ink);
@@ -178,6 +180,10 @@ nav a:hover::after, .text-link:hover::after {
   grid-template-columns: minmax(0, 1.02fr) minmax(430px, 0.98fr);
   align-items: center;
   gap: 3.2rem;
+}
+
+.hero-copy {
+  min-width: 0;
 }
 
 .eyebrow {
@@ -726,11 +732,15 @@ footer {
   .nav-cta { margin-left: auto; }
 
   .hero-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 2.6rem;
   }
 
-  .hero-copy { max-width: 760px; }
+  .hero-copy {
+    width: 100%;
+    max-width: 760px;
+    min-width: 0;
+  }
   .hero-visual { height: 520px; }
 
   .location-grid {
@@ -752,7 +762,14 @@ footer {
   }
 
   .hero { padding: 1.8rem 0 2.8rem; }
-  h1 { font-size: clamp(3.2rem, 15.5vw, 5rem); }
+
+  h1 {
+    width: 100%;
+    max-width: 100%;
+    font-size: clamp(2.75rem, 14vw, 4.4rem);
+  }
+
+  .hero-title-line { max-width: 100%; }
 
   .hero-actions {
     grid-template-columns: minmax(0, 1fr) 4.2rem;
