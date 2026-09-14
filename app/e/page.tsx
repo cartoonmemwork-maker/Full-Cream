@@ -42,7 +42,6 @@ export default function ListenPage() {
       <main className={styles.page} id="pedido-para-escuchar">
         <section className={styles.hero}>
           <div className="container">
-            <p className={styles.eyebrow}>Pedido Full Cream</p>
             <h1>Escuchar pedido</h1>
             <p className={styles.heroText}>
               Primero se reproducen los sabores y sus baldes; al final, los envases y sus paquetes.
