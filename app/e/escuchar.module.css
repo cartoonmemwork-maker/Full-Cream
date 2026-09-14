@@ -176,6 +176,10 @@
   text-align: center;
 }
 
+.listSection + .listSection {
+  border-top: 1px solid var(--line);
+}
+
 .listHeading {
   display: flex;
   align-items: center;
