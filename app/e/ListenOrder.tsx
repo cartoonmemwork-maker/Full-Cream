@@ -14,7 +14,8 @@ type PlaybackState = "idle" | "playing" | "paused" | "finished";
 function decodeOrder(value: string | null): ListenItem[] {
   if (!value) return [];
 
-  const quantities = new Map<number, number>();
+  const items: ListenItem[] = [];
+  const seen = new Set<number>();
 
   value.split(",").forEach((token) => {
     if (!/^[0-9a-z]+\.[0-9a-z]+$/i.test(token)) return;
@@ -22,23 +23,22 @@ function decodeOrder(value: string | null): ListenItem[] {
     const [rawIndex, rawQuantity] = token.split(".");
     const index = Number.parseInt(rawIndex, 36);
     const quantity = Number.parseInt(rawQuantity, 36);
+    const entry = flavorCatalog[index];
 
     if (
       Number.isSafeInteger(index) &&
       Number.isSafeInteger(quantity) &&
-      index >= 0 &&
-      index < flavorCatalog.length &&
+      entry &&
+      !seen.has(index) &&
       quantity > 0 &&
       quantity <= 999
     ) {
-      quantities.set(index, quantity);
+      seen.add(index);
+      items.push({ item: entry.item, quantity });
     }
   });
 
-  return flavorCatalog.flatMap((entry, index) => {
-    const quantity = quantities.get(index);
-    return quantity ? [{ item: entry.item, quantity }] : [];
-  });
+  return items;
 }
 
 function spokenFlavor(name: string) {
