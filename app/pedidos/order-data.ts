@@ -93,6 +93,12 @@ export const flavorGroups: readonly OrderGroup[] = [
   },
 ] as const;
 
+// Catálogo plano y estable para generar enlaces cortos de escucha.
+// Mantiene exactamente el orden de la nota de entrega.
+export const flavorCatalog = flavorGroups.flatMap((group) =>
+  group.items.map((item) => ({ groupId: group.id, item })),
+);
+
 export const packaging: readonly string[] = [
   "Térmico 1/8 Kg x 50U",
   "Térmico 1/4 Kg x 20U",
