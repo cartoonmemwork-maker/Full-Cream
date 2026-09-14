@@ -1,5 +1,6 @@
 import HeroCarousel from "./components/HeroCarousel";
 import HeroStats from "./components/HeroStats";
+import OrderTruckIcon from "./components/OrderTruckIcon";
 import SmoothAnchorFallback from "./components/SmoothAnchorFallback";
 
 const whatsappUrl =
@@ -159,6 +160,14 @@ export default function Home() {
               alt="WhatsApp"
             />
           </a>
+
+          <a
+            className="nav-order-shortcut"
+            href="/pedidos/"
+            aria-label="Ir al panel de pedidos"
+          >
+            <OrderTruckIcon className="nav-order-icon" />
+          </a>
         </div>
       </header>
 
@@ -229,10 +238,16 @@ export default function Home() {
             </div>
 
             <div className="order-entry">
-              <div>
-                <p className="order-entry-label">Clientes Full Cream</p>
-                <h3>Armá tu pedido online</h3>
-                <p>Elegí sabores, baldes de 15 litros y envases. Te preparamos el mensaje para WhatsApp.</p>
+              <div className="order-entry-main">
+                <OrderTruckIcon className="order-entry-truck" />
+                <div className="order-entry-copy">
+                  <p className="order-entry-label">Clientes Full Cream</p>
+                  <h3>Armá tu pedido online</h3>
+                  <p>
+                    Seleccioná la cantidad de baldes de 15 litros y los envases que
+                    necesitás, y te preparamos el mensaje para enviarlo por WhatsApp.
+                  </p>
+                </div>
               </div>
               <a className="button order-entry-button" href="/pedidos">
                 Hacer un pedido
