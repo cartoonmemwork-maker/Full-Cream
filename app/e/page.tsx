@@ -5,12 +5,12 @@ import styles from "./escuchar.module.css";
 
 export const metadata: Metadata = {
   title: "Escuchar pedido | Full Cream",
-  description: "Escuchá los sabores y la cantidad de baldes del pedido Full Cream.",
+  description: "Escuchá los sabores, baldes y envases del pedido Full Cream.",
   alternates: { canonical: "/e/" },
   robots: { index: false, follow: false },
   openGraph: {
     title: "Escuchar pedido 🔊 | Full Cream",
-    description: "Reproducí los sabores y baldes de este pedido.",
+    description: "Reproducí los sabores, baldes y envases de este pedido.",
     url: "/e/",
   },
 };
@@ -45,7 +45,7 @@ export default function ListenPage() {
             <p className={styles.eyebrow}>Pedido Full Cream</p>
             <h1>Escuchar pedido</h1>
             <p className={styles.heroText}>
-              Cada sabor se reproduce junto a sus propios baldes, una línea por vez.
+              Primero se reproducen los sabores y sus baldes; al final, los envases y sus paquetes.
             </p>
           </div>
         </section>
@@ -55,7 +55,7 @@ export default function ListenPage() {
             <ListenOrder />
           </div>
           <p className={styles.footerNote}>
-            Este enlace contiene únicamente sabores y baldes. No incluye datos del cliente.
+            Este enlace contiene únicamente sabores, baldes, envases y paquetes. No incluye datos del cliente.
           </p>
         </section>
       </main>
