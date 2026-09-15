@@ -240,11 +240,13 @@ export default function Home() {
               <div className="order-entry-main">
                 <OrderTruckIcon className="order-entry-truck" />
                 <div className="order-entry-copy">
-                  <p className="order-entry-label">Clientes Full Cream</p>
+                  <p className="order-entry-label">
+                    Herramienta para Clientes Full Cream
+                  </p>
                   <h3>Armá tu pedido online</h3>
                   <p>
-                    Seleccioná la cantidad de baldes de 15 litros y los envases que
-                    necesitás, y te preparamos el mensaje para enviarlo por WhatsApp.
+                    Seleccioná la cantidad de baldes de 15 litros y te preparamos el
+                    mensaje para enviarlo por WhatsApp.
                   </p>
                 </div>
               </div>
