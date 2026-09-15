@@ -583,7 +583,7 @@ h1 em {
   display: grid;
   min-width: 0;
   flex: 1;
-  grid-template-columns: 6.2rem minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr) 6.2rem;
   align-items: center;
   gap: 1.2rem;
 }
@@ -875,9 +875,14 @@ footer {
   }
 
   .order-entry-main {
-    grid-template-columns: 4.7rem minmax(0, 1fr);
+    grid-template-columns: 1fr;
     align-items: center;
     gap: 0.85rem;
+  }
+
+  .order-entry-truck {
+    width: 4.7rem;
+    justify-self: center;
   }
 
   .order-entry-button { width: 100%; }
