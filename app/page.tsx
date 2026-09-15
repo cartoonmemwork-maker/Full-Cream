@@ -238,10 +238,9 @@ export default function Home() {
 
             <div className="order-entry">
               <div className="order-entry-main">
-                <OrderTruckIcon className="order-entry-truck" />
                 <div className="order-entry-copy">
                   <p className="order-entry-label">
-                    Herramienta para Clientes Full Cream
+                    Herramienta para clientes Full Cream
                   </p>
                   <h3>Armá tu pedido online</h3>
                   <p>
@@ -249,6 +248,7 @@ export default function Home() {
                     mensaje para enviarlo por WhatsApp.
                   </p>
                 </div>
+                <OrderTruckIcon className="order-entry-truck" />
               </div>
               <a className="button order-entry-button" href="/pedidos">
                 Hacer un pedido
