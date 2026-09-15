@@ -19,6 +19,8 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6rem;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -843,7 +845,7 @@ footer {
   h1 {
     width: 100%;
     max-width: 100%;
-    font-size: clamp(2.75rem, 14vw, 4.4rem);
+    font-size: clamp(2.55rem, 12.5vw, 4.1rem);
   }
 
   .hero-title-line { max-width: 100%; }
@@ -928,4 +930,45 @@ footer {
   .footer-row {
     gap: 0.8rem;
   }
+}
+
+@media (max-width: 390px) {
+  .container { width: calc(100% - 1rem); }
+
+  .nav-shell { gap: 0.35rem; }
+  .brand { width: 6.8rem; }
+
+  .nav-cta {
+    min-height: 2.4rem;
+    padding-inline: 0.55rem;
+  }
+
+  .whatsapp-wordmark { width: 4.7rem; }
+
+  .nav-order-shortcut {
+    width: 2.45rem;
+    height: 2.45rem;
+  }
+
+  .nav-order-icon { width: 1.9rem; }
+
+  h1 { font-size: clamp(2.4rem, 12vw, 2.95rem); }
+
+  .hero-actions {
+    grid-template-columns: minmax(0, 1fr) 3.65rem;
+    gap: 0.6rem;
+  }
+
+  .button-primary {
+    padding-inline: 0.9rem;
+    font-size: 0.8rem;
+  }
+
+  .store-vector { width: 3.65rem; }
+
+  .hero-facts li { padding-right: 0.45rem; }
+  .hero-facts li + li { padding-left: 0.45rem; }
+  .hero-facts span { font-size: 0.58rem; }
+
+  .order-entry { padding: 1.15rem; }
 }

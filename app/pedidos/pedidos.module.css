@@ -121,6 +121,11 @@
   gap: 1rem;
 }
 
+.cardHeading > div,
+.stepHeading > div {
+  min-width: 0;
+}
+
 .cardHeading > span,
 .stepHeading > span {
   display: grid;
@@ -596,12 +601,12 @@
 
   .orderHeroHeading {
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.45rem;
   }
 
   .orderHero h1 {
     flex: 1;
-    font-size: clamp(2.8rem, 14vw, 4.35rem);
+    font-size: clamp(2.6rem, 12.5vw, 4rem);
     line-height: 0.92;
   }
 
@@ -612,8 +617,8 @@
   }
 
   .orderTruck {
-    width: clamp(6.8rem, 30vw, 8.5rem);
-    margin-right: 0.65rem;
+    width: clamp(6.2rem, 28vw, 8rem);
+    margin-right: 0.25rem;
   }
 
   .customerCard {
@@ -703,4 +708,43 @@
     flex: 0 0 auto;
     color: white;
   }
+}
+
+@media (max-width: 390px) {
+  .orderHeroHeading { gap: 0.25rem; }
+
+  .orderHero h1 {
+    font-size: clamp(2.4rem, 12vw, 2.95rem);
+  }
+
+  .orderTruck {
+    width: clamp(5.7rem, 26vw, 6.35rem);
+    margin-right: 0;
+  }
+
+  .customerCard { padding: 1rem; }
+
+  .cardHeading,
+  .stepHeading { gap: 0.7rem; }
+
+  .cardHeading > span,
+  .stepHeading > span {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .cardHeading h2,
+  .stepHeading h2 {
+    font-size: clamp(1.5rem, 7vw, 1.7rem);
+  }
+
+  .mobileOrderBar {
+    right: 0.5rem;
+    left: 0.5rem;
+    gap: 0.5rem;
+    padding-inline: 0.8rem;
+  }
+
+  .mobileOrderBar .mobileReviewAction { gap: 0.3rem; }
+  .mobileReviewTruck { width: 2rem; }
 }
