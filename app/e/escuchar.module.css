@@ -38,7 +38,9 @@
 
 .hero h1 {
   width: 100%;
+  max-width: none;
   margin: 0;
+  margin-inline: auto;
   color: white;
   text-align: center;
   font-size: clamp(3rem, 8vw, 5.4rem);
