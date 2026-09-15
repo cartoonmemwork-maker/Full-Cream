@@ -68,6 +68,7 @@
   width: clamp(10rem, 19vw, 14rem);
   height: auto;
   flex: 0 0 auto;
+  margin-right: 1rem;
   color: white;
 }
 
@@ -351,11 +352,26 @@
   text-transform: uppercase;
 }
 
-.summary h2 {
+.summaryTitle {
+  display: flex;
   margin: 0.35rem 0 1.1rem;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.summary h2 {
+  margin: 0;
   color: white;
   font-size: 2.1rem;
   line-height: 1;
+}
+
+.summaryTruck {
+  width: 4.6rem;
+  height: auto;
+  flex: 0 0 auto;
+  color: white;
 }
 
 .emptySummary {
@@ -578,7 +594,7 @@
 
   .orderTruck {
     width: clamp(6.8rem, 30vw, 8.5rem);
-    margin-right: -0.35rem;
+    margin-right: 0.65rem;
   }
 
   .customerCard {
@@ -652,5 +668,20 @@
     color: white;
     font-size: 1.1rem;
     font-variant-numeric: tabular-nums;
+  }
+
+  .mobileOrderBar .mobileReviewAction {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: white;
+    font-weight: 900;
+  }
+
+  .mobileReviewTruck {
+    width: 2.35rem;
+    height: auto;
+    flex: 0 0 auto;
+    color: white;
   }
 }
