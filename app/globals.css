@@ -596,6 +596,7 @@ h1 em {
   width: 100%;
   height: auto;
   color: white;
+  transition: color 180ms ease;
 }
 
 .order-entry-label {
@@ -630,6 +631,41 @@ h1 em {
 
 .order-entry-button:hover {
   background: var(--peach-light);
+}
+
+.order-entry:has(.order-entry-button:is(:hover, :focus-visible)) .order-entry-truck {
+  color: var(--peach-light);
+}
+
+.order-entry:has(.order-entry-button[data-departing]) .order-entry-truck {
+  color: var(--peach-light);
+  animation: order-truck-departure 460ms cubic-bezier(0.4, 0, 1, 1) forwards;
+}
+
+.order-entry-button[data-departing] {
+  pointer-events: none;
+}
+
+@keyframes order-truck-departure {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(clamp(3rem, 8vw, 6rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .order-entry-truck {
+    transition: none;
+  }
+
+  .order-entry:has(.order-entry-button[data-departing]) .order-entry-truck {
+    animation: none;
+  }
 }
 
 .start {
