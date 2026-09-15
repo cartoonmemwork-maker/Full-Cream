@@ -91,7 +91,7 @@ export default function ListenOrder() {
   const [supported, setSupported] = useState(true);
   const [playback, setPlayback] = useState<PlaybackState>("idle");
   const [currentIndex, setCurrentIndex] = useState(-1);
-  const [rate, setRate] = useState(0.88);
+  const [rate, setRate] = useState(1);
   const utterancesRef = useRef<SpeechSynthesisUtterance[]>([]);
   const runIdRef = useRef(0);
 
