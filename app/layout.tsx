@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+const siteDescription =
+  "Fabricamos helados y te ayudamos a equipar tu local. Más de 60 sabores para tu heladería, desde el primer día.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://fullcream.online"),
   title: "Full Cream | Fábrica de Helados",
-  description:
-    "Fabricamos helados y te ayudamos a equipar tu local. 62 Sabores en Villa Bosch.",
+  description: siteDescription,
   applicationName: "Full Cream",
   authors: [{ name: "Full Cream" }],
   creator: "Full Cream",
@@ -27,8 +29,7 @@ export const metadata: Metadata = {
     url: "/",
     siteName: "Full Cream",
     title: "Full Cream | Fábrica de Helados",
-    description:
-      "Fabricamos helados y te ayudamos a equipar tu local. 62 Sabores en Villa Bosch.",
+    description: siteDescription,
     images: [
       {
         url: "https://fullcream.online/og.png",
@@ -41,8 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary",
     title: "Full Cream | Fábrica de Helados",
-    description:
-      "Fabricamos helados y te ayudamos a equipar tu local. 62 Sabores en Villa Bosch.",
+    description: siteDescription,
     images: ["https://fullcream.online/og.png"],
   },
   robots: {
