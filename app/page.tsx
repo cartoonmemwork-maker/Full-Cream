@@ -69,7 +69,6 @@ const flavors = [
       "Banana Dolca",
       "Cabsha",
       "Cadbury",
-      "Chocolate",
       "Chocolate amargo",
       "Chocolate Bariloche",
       "Chocolate blanco pistacho",
@@ -106,7 +105,7 @@ const localBusinessSchema = {
   "@id": "https://fullcream.online/#business",
   name: "Full Cream",
   description:
-    "Fábrica de helados en Villa Bosch con 62 sabores y equipamiento para heladerías.",
+    "Fábrica de helados en Villa Bosch con más de 60 sabores y equipamiento para heladerías.",
   url: "https://fullcream.online/",
   telephone: "+54 11 5813-0577",
   image: "https://fullcream.online/images/helado-full-cream-2048.webp",
@@ -184,8 +183,8 @@ export default function Home() {
               </h1>
               <p className="hero-lead">
                 Fabricamos helados y te ayudamos a equipar tu local. Contamos
-                con una carta de 62 sabores para que tu heladería ofrezca la más
-                amplia variedad del mercado, desde el primer día.
+                con más de 60 sabores, para que tu heladería ofrezca la más
+                amplia variedad del mercado desde el primer día.
               </p>
 
               <div className="hero-actions">
