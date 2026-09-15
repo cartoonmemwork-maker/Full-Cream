@@ -722,10 +722,8 @@
     margin-right: 0;
   }
 
-  .customerCard { padding: 1rem; }
-
   .cardHeading,
-  .stepHeading { gap: 0.7rem; }
+  .stepHeading { gap: 0.85rem; }
 
   .cardHeading > span,
   .stepHeading > span {
@@ -739,10 +737,7 @@
   }
 
   .mobileOrderBar {
-    right: 0.5rem;
-    left: 0.5rem;
-    gap: 0.5rem;
-    padding-inline: 0.8rem;
+    gap: 0.65rem;
   }
 
   .mobileOrderBar .mobileReviewAction { gap: 0.3rem; }

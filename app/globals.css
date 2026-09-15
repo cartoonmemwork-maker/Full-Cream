@@ -933,8 +933,6 @@ footer {
 }
 
 @media (max-width: 390px) {
-  .container { width: calc(100% - 1rem); }
-
   .nav-shell { gap: 0.35rem; }
   .brand { width: 6.8rem; }
 
@@ -969,6 +967,4 @@ footer {
   .hero-facts li { padding-right: 0.45rem; }
   .hero-facts li + li { padding-left: 0.45rem; }
   .hero-facts span { font-size: 0.58rem; }
-
-  .order-entry { padding: 1.15rem; }
 }

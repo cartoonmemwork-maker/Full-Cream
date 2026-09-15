@@ -375,6 +375,4 @@
   .hero h1 {
     font-size: clamp(2.4rem, 12vw, 2.95rem);
   }
-
-  .controls { padding: 0.9rem; }
 }
