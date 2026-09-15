@@ -1,5 +1,6 @@
 import HeroCarousel from "./components/HeroCarousel";
 import HeroStats from "./components/HeroStats";
+import OrderEntryButton from "./components/OrderEntryButton";
 import OrderTruckIcon from "./components/OrderTruckIcon";
 import SmoothAnchorFallback from "./components/SmoothAnchorFallback";
 
@@ -250,9 +251,7 @@ export default function Home() {
                 </div>
                 <OrderTruckIcon className="order-entry-truck" />
               </div>
-              <a className="button order-entry-button" href="/pedidos">
-                Hacer un pedido
-              </a>
+              <OrderEntryButton />
             </div>
           </div>
         </section>
