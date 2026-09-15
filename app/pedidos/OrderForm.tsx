@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useMemo, useState } from "react";
+import OrderTruckIcon from "../components/OrderTruckIcon";
 import {
   flavorCatalog,
   flavorGroups,
@@ -297,7 +298,10 @@ export default function OrderForm() {
 
         <aside className={styles.summary} id="resumen-pedido" aria-labelledby="title-resumen">
           <div className={styles.summaryEyebrow}>03 · Revisá antes de enviar</div>
-          <h2 id="title-resumen">Tu pedido</h2>
+          <div className={styles.summaryTitle}>
+            <h2 id="title-resumen">Tu pedido</h2>
+            <OrderTruckIcon className={styles.summaryTruck} />
+          </div>
 
           {!hasOrder ? (
             <div className={styles.emptySummary}>
@@ -364,10 +368,12 @@ export default function OrderForm() {
           <span>
             <strong>{totalBuckets}</strong> {totalBuckets === 1 ? "balde" : "baldes"}
           </span>
-          Revisar pedido
+          <span className={styles.mobileReviewAction}>
+            Revisar pedido
+            <OrderTruckIcon className={styles.mobileReviewTruck} />
+          </span>
         </a>
       )}
     </form>
   );
 }
-
