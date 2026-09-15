@@ -8,7 +8,11 @@ export const metadata: Metadata = {
   title: "Pedidos | Full Cream",
   description: "Armá tu pedido de baldes de helado y envases para enviarlo por WhatsApp.",
   alternates: { canonical: "/pedidos/" },
-  robots: { index: false, follow: false },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: { index: false, follow: true },
+  },
 };
 
 export default function OrdersPage() {

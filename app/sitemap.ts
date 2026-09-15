@@ -9,6 +9,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
+      images: [
+        "https://fullcream.online/images/fabrica-produccion.webp",
+        "https://fullcream.online/images/helados-fut.webp",
+        "https://fullcream.online/images/sabores-full-cream.webp",
+        "https://fullcream.online/images/helado-full-cream-2048.webp",
+        "https://fullcream.online/images/heladeria-full-cream.webp",
+      ],
     },
   ];
 }

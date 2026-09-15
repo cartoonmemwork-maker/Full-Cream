@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
     },
     sitemap: "https://fullcream.online/sitemap.xml",
-    host: "https://fullcream.online",
+    host: "fullcream.online",
   };
 }

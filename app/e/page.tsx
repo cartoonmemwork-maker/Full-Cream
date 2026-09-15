@@ -7,7 +7,11 @@ export const metadata: Metadata = {
   title: "Escuchar pedido | Full Cream",
   description: "Escuchá los sabores, baldes y envases del pedido Full Cream.",
   alternates: { canonical: "/e/" },
-  robots: { index: false, follow: false },
+  robots: {
+    index: false,
+    follow: true,
+    googleBot: { index: false, follow: true },
+  },
   openGraph: {
     title: "Escuchar pedido 🔊 | Full Cream",
     description: "Reproducí los sabores, baldes y envases de este pedido.",

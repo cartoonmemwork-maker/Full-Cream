@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const siteDescription =
+const seoDescription =
+  "Helados por mayor con más de 60 sabores. Equipamos tu local y te ayudamos a abrir tu heladería desde nuestra fábrica en Villa Bosch.";
+const shareDescription =
   "Fabricamos helados y te ayudamos a equipar tu local. Más de 60 sabores para tu heladería, desde el primer día.";
 const shareTitle = "Full Cream | Más de 60 sabores";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fullcream.online"),
-  title: "Full Cream | Fábrica de Helados",
-  description: siteDescription,
+  title: "Fábrica de Helados por Mayor | Full Cream",
+  description: seoDescription,
   applicationName: "Full Cream",
   authors: [{ name: "Full Cream" }],
   creator: "Full Cream",
@@ -16,34 +18,26 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/",
   },
-  keywords: [
-    "fábrica de helados",
-    "helados por mayor",
-    "abrir heladería",
-    "equipamiento para heladería",
-    "helados Villa Bosch",
-    "Full Cream",
-  ],
   openGraph: {
     type: "website",
     locale: "es_AR",
     url: "/",
     siteName: "Full Cream",
     title: shareTitle,
-    description: siteDescription,
+    description: shareDescription,
     images: [
       {
         url: "https://fullcream.online/og.png",
         width: 520,
         height: 520,
-        alt: "Full Cream | Fábrica de Helados",
+        alt: "Fábrica de helados por mayor Full Cream",
       },
     ],
   },
   twitter: {
     card: "summary",
     title: shareTitle,
-    description: siteDescription,
+    description: shareDescription,
     images: ["https://fullcream.online/og.png"],
   },
   robots: {

@@ -100,29 +100,75 @@ const newFlavors = new Set([
   "Chocolate pistacho",
 ]);
 
-const localBusinessSchema = {
+const structuredData = {
   "@context": "https://schema.org",
-  "@type": "LocalBusiness",
-  "@id": "https://fullcream.online/#business",
-  name: "Full Cream",
-  description:
-    "Fábrica de helados en Villa Bosch con más de 60 sabores y equipamiento para heladerías.",
-  url: "https://fullcream.online/",
-  telephone: "+54 11 5813-0577",
-  image: "https://fullcream.online/images/helado-full-cream-2048.webp",
-  address: {
-    "@type": "PostalAddress",
-    streetAddress: "Gral. López 951",
-    addressLocality: "Villa Bosch",
-    addressRegion: "Provincia de Buenos Aires",
-    postalCode: "B1682",
-    addressCountry: "AR",
-  },
-  geo: {
-    "@type": "GeoCoordinates",
-    latitude: -34.578121,
-    longitude: -58.5846183,
-  },
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://fullcream.online/#website",
+      url: "https://fullcream.online/",
+      name: "Full Cream",
+      alternateName: "Helados Full Cream",
+      inLanguage: "es-AR",
+      publisher: { "@id": "https://fullcream.online/#business" },
+    },
+    {
+      "@type": "LocalBusiness",
+      "@id": "https://fullcream.online/#business",
+      name: "Full Cream",
+      alternateName: "Helados Full Cream",
+      description:
+        "Fábrica de helados por mayor en Villa Bosch con más de 60 sabores y equipamiento para heladerías.",
+      url: "https://fullcream.online/",
+      telephone: "+54 11 5813-0577",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://fullcream.online/images/full-cream-logo.png",
+        width: 499,
+        height: 135,
+      },
+      image: [
+        "https://fullcream.online/images/fabrica-produccion.webp",
+        "https://fullcream.online/images/helado-full-cream-2048.webp",
+        "https://fullcream.online/images/heladeria-full-cream.webp",
+      ],
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: "Gral. López 951",
+        addressLocality: "Villa Bosch",
+        addressRegion: "Provincia de Buenos Aires",
+        postalCode: "B1682",
+        addressCountry: "AR",
+      },
+      geo: {
+        "@type": "GeoCoordinates",
+        latitude: -34.578121,
+        longitude: -58.5846183,
+      },
+      contactPoint: {
+        "@type": "ContactPoint",
+        telephone: "+54 11 5813-0577",
+        contactType: "ventas",
+        availableLanguage: "Spanish",
+      },
+      makesOffer: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Helados por mayor",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Equipamiento para heladerías",
+          },
+        },
+      ],
+    },
+  ],
 };
 
 export default function Home() {
@@ -146,7 +192,7 @@ export default function Home() {
 
           <nav aria-label="Navegación principal">
             <a href="#sabores">Sabores</a>
-            <a href="/pedidos">Pedidos</a>
+            <a href="/pedidos/">Pedidos</a>
             <a href="#heladeria">Abrí tu heladería</a>
             <a href="#contacto">Ubicación</a>
           </nav>
@@ -175,6 +221,7 @@ export default function Home() {
         <section className="hero" id="inicio">
           <div className="container hero-grid">
             <div className="hero-copy">
+              <p className="eyebrow">Fábrica de helados por mayor</p>
               <h1>
                 <span className="hero-title-line">¿Querés abrir</span>{" "}
                 <span className="hero-title-line hero-title-line-middle">
@@ -213,7 +260,10 @@ export default function Home() {
           <div className="container">
             <div className="section-heading flavors-heading">
               <h2>Sabores</h2>
-              <p>Cuatro categorías. Tocá cada una para ver la lista completa.</p>
+              <p>
+                Conocé nuestra carta de más de 60 sabores de helado, organizada
+                en cuatro categorías.
+              </p>
             </div>
 
             <div className="flavor-grid">
@@ -272,7 +322,7 @@ export default function Home() {
         <section className="section location" id="contacto">
           <div className="container location-grid">
             <div className="location-copy">
-              <h2>Fábrica de Helados Full Cream</h2>
+              <h2>Fábrica de helados Full Cream en Villa Bosch</h2>
               <address>
                 <strong>Gral. López 951</strong>
                 <span>Villa Bosch, Provincia de Buenos Aires</span>
@@ -303,7 +353,7 @@ export default function Home() {
 
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
     </>
   );
