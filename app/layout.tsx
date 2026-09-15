@@ -3,6 +3,7 @@ import "./globals.css";
 
 const siteDescription =
   "Fabricamos helados y te ayudamos a equipar tu local. Más de 60 sabores para tu heladería, desde el primer día.";
+const shareTitle = "Full Cream | Más de 60 sabores";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fullcream.online"),
@@ -28,7 +29,7 @@ export const metadata: Metadata = {
     locale: "es_AR",
     url: "/",
     siteName: "Full Cream",
-    title: "Full Cream | Fábrica de Helados",
+    title: shareTitle,
     description: siteDescription,
     images: [
       {
@@ -41,7 +42,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Full Cream | Fábrica de Helados",
+    title: shareTitle,
     description: siteDescription,
     images: ["https://fullcream.online/og.png"],
   },
