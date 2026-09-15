@@ -39,7 +39,10 @@ export default function OrdersPage() {
         <section className={styles.orderHero}>
           <div className="container">
             <div className={styles.orderHeroHeading}>
-              <h1>Armá tu pedido</h1>
+              <h1>
+                <span>Armá tu</span>{" "}
+                <em>pedido</em>
+              </h1>
               <OrderTruckIcon className={styles.orderTruck} />
             </div>
             <p>
