@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 62, prefix: "+", label: "Sabores", href: "#sabores" },
+  { value: 60, prefix: "+", label: "Sabores", href: "#sabores" },
   { value: 20, prefix: "+", label: "Sucursales", href: "#heladeria" },
   { value: 1, prefix: "", label: "Fábrica", href: "#contacto" },
 ];
