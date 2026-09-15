@@ -102,6 +102,13 @@
   transform: translateY(-1px);
 }
 
+.listenIcon {
+  width: 1.5rem;
+  height: 1.42rem;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
 .primaryButton:disabled,
 .secondaryButton:disabled {
   opacity: 0.42;

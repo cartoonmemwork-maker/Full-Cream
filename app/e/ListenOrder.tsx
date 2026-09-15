@@ -232,7 +232,14 @@ export default function ListenOrder() {
           type="button"
           onClick={startPlayback}
         >
-          <span aria-hidden="true">🔊</span>
+          <img
+            className={styles.listenIcon}
+            src="/images/parlante.png"
+            width="190"
+            height="180"
+            alt=""
+            aria-hidden="true"
+          />
           {playback === "idle"
             ? "Escuchar"
             : playback === "finished"
