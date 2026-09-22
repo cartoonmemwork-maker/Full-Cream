@@ -44,10 +44,10 @@
 }
 
 .orderHeroHeading {
-  display: flex;
+  display: grid;
   max-width: 940px;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: space-between;
   gap: 2rem;
 }
 
@@ -600,6 +600,7 @@
   }
 
   .orderHeroHeading {
+    grid-template-columns: minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.45rem;
   }
@@ -711,7 +712,10 @@
 }
 
 @media (max-width: 390px) {
-  .orderHeroHeading { gap: 0.25rem; }
+  .orderHeroHeading {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem;
+  }
 
   .orderHero h1 {
     font-size: clamp(2.4rem, 12vw, 2.95rem);
@@ -723,7 +727,9 @@
   }
 
   .cardHeading,
-  .stepHeading { gap: 0.85rem; }
+  .stepHeading {
+    gap: 0.85rem;
+  }
 
   .cardHeading > span,
   .stepHeading > span {
@@ -740,6 +746,11 @@
     gap: 0.65rem;
   }
 
-  .mobileOrderBar .mobileReviewAction { gap: 0.3rem; }
-  .mobileReviewTruck { width: 2rem; }
+  .mobileOrderBar .mobileReviewAction {
+    gap: 0.3rem;
+  }
+
+  .mobileReviewTruck {
+    width: 2rem;
+  }
 }
