@@ -65,10 +65,7 @@
 }
 
 .orderTruck {
-  width: clamp(10rem, 19vw, 14rem);
-  height: auto;
-  color: white;
-  animation: order-truck-arrival 650ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
+display: none;
 }
 
 @keyframes order-truck-arrival {
@@ -619,6 +616,7 @@
   }
 
   .orderTruck {
+    display: block;
     width: clamp(7rem, 32vw, 9rem);
     height: auto;
     margin: 0 auto;
