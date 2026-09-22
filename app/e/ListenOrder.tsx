@@ -58,22 +58,33 @@ function spokenFlavor(name: string) {
 }
 
 const packagingPronunciations: Record<string, string> = {
-  "Térmico 1/8 Kg x 50U": "Térmico de un octavo de kilo por cincuenta unidades",
-  "Térmico 1/4 Kg x 20U": "Térmico de un cuarto de kilo por veinte unidades",
-  "Térmico 1/2 Kg x 20U": "Térmico de medio kilo por veinte unidades",
-  "Térmico 1 Kg x 20U": "Térmico de un kilo por veinte unidades",
+  "Térmico 1/8 Kg x 50U":
+    "Térmico de un octavo de kilo por cincuenta unidades",
+  "Térmico 1/4 Kg x 20U":
+    "Térmico de un cuarto de kilo por veinte unidades",
+  "Térmico 1/2 Kg x 20U":
+    "Térmico de medio kilo por veinte unidades",
+  "Térmico 1 Kg x 20U":
+    "Térmico de un kilo por veinte unidades",
 };
 
 function spokenPackaging(name: string) {
-  return (packagingPronunciations[name] ?? name).replace(/N°\s*/g, "número ");
+  return (packagingPronunciations[name] ?? name).replace(
+    /N°\s*/g,
+    "número ",
+  );
 }
 
 function itemUnit(item: ListenItem) {
   if (item.kind === "packaging") {
-    return item.quantity === 1 ? "un paquete" : item.quantity + " paquetes";
+    return item.quantity === 1
+      ? "un paquete"
+      : item.quantity + " paquetes";
   }
 
-  return item.quantity === 1 ? "un balde" : item.quantity + " baldes";
+  return item.quantity === 1
+    ? "un balde"
+    : item.quantity + " baldes";
 }
 
 function spokenLine(item: ListenItem) {
@@ -92,22 +103,69 @@ export default function ListenOrder() {
   const [playback, setPlayback] = useState<PlaybackState>("idle");
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [rate, setRate] = useState(1);
+
   const utterancesRef = useRef<SpeechSynthesisUtterance[]>([]);
   const runIdRef = useRef(0);
+  const voiceRef = useRef<SpeechSynthesisVoice | null>(null);
 
   useEffect(() => {
+    const synthesis = window.speechSynthesis;
+
+    const loadVoice = () => {
+      const voices = synthesis.getVoices();
+
+      const voice =
+        voices.find(
+          (candidate) =>
+            candidate.lang.toLowerCase() === "es-ar",
+        ) ??
+        voices.find(
+          (candidate) =>
+            candidate.lang.toLowerCase().startsWith("es"),
+        ) ??
+        null;
+
+      if (voice) {
+        voiceRef.current = voice;
+      }
+    };
+
     const params = new URLSearchParams(window.location.search);
-    const flavors = decodeSelection(params.get("p"), flavorNames, "flavor");
-    const envases = decodeSelection(params.get("e"), packaging, "packaging");
-    setItems([...flavors, ...envases]);
-    setSupported(
-      "speechSynthesis" in window && "SpeechSynthesisUtterance" in window,
+    const flavors = decodeSelection(
+      params.get("p"),
+      flavorNames,
+      "flavor",
     );
+    const envases = decodeSelection(
+      params.get("e"),
+      packaging,
+      "packaging",
+    );
+
+    setItems([...flavors, ...envases]);
+
+    setSupported(
+      "speechSynthesis" in window &&
+        "SpeechSynthesisUtterance" in window,
+    );
+
+    /*
+     * Android/Chrome puede devolver una lista vacía o incompleta
+     * la primera vez que se consulta getVoices().
+     *
+     * onvoiceschanged avisa cuando las voces ya están disponibles.
+     */
+    synthesis.addEventListener("voiceschanged", loadVoice);
+
+    // Intentamos cargar la voz inmediatamente.
+    loadVoice();
+
     setReady(true);
 
     return () => {
       runIdRef.current += 1;
-      window.speechSynthesis?.cancel();
+      synthesis.cancel();
+      synthesis.removeEventListener("voiceschanged", loadVoice);
     };
   }, []);
 
@@ -123,33 +181,60 @@ export default function ListenOrder() {
     if (!supported || items.length === 0) return;
 
     const synthesis = window.speechSynthesis;
+
     synthesis.cancel();
 
     const runId = runIdRef.current + 1;
     runIdRef.current = runId;
+
     setCurrentIndex(-1);
     setPlayback("playing");
 
-    const voices = synthesis.getVoices();
-    const voice =
-      voices.find((candidate) => candidate.lang.toLowerCase() === "es-ar") ??
-      voices.find((candidate) => candidate.lang.toLowerCase().startsWith("es"));
+    /*
+     * Normalmente la voz ya fue cargada mediante voiceschanged.
+     * Como respaldo, si todavía no está disponible, intentamos
+     * encontrarla nuevamente antes de crear las utterances.
+     */
+    if (!voiceRef.current) {
+      const voices = synthesis.getVoices();
+
+      voiceRef.current =
+        voices.find(
+          (candidate) =>
+            candidate.lang.toLowerCase() === "es-ar",
+        ) ??
+        voices.find(
+          (candidate) =>
+            candidate.lang.toLowerCase().startsWith("es"),
+        ) ??
+        null;
+    }
+
+    const voice = voiceRef.current;
 
     const utterances = items.map((item, index) => {
-      const utterance = new SpeechSynthesisUtterance(spokenLine(item));
+      const utterance = new SpeechSynthesisUtterance(
+        spokenLine(item),
+      );
+
       utterance.lang = voice?.lang ?? "es-AR";
       utterance.rate = rate;
       utterance.pitch = 1;
 
-      if (voice) utterance.voice = voice;
+      if (voice) {
+        utterance.voice = voice;
+      }
 
       utterance.onstart = () => {
-        if (runIdRef.current === runId) setCurrentIndex(index);
+        if (runIdRef.current === runId) {
+          setCurrentIndex(index);
+        }
       };
 
       if (index === items.length - 1) {
         utterance.onend = () => {
           if (runIdRef.current !== runId) return;
+
           setPlayback("finished");
           setCurrentIndex(-1);
           utterancesRef.current = [];
@@ -171,7 +256,10 @@ export default function ListenOrder() {
     });
 
     utterancesRef.current = utterances;
-    utterances.forEach((utterance) => synthesis.speak(utterance));
+
+    utterances.forEach((utterance) => {
+      synthesis.speak(utterance);
+    });
   };
 
   const togglePause = () => {
@@ -188,13 +276,19 @@ export default function ListenOrder() {
   };
 
   const changeRate = (nextRate: number) => {
-    if (playback === "playing" || playback === "paused") stopPlayback();
+    if (playback === "playing" || playback === "paused") {
+      stopPlayback();
+    }
+
     setRate(nextRate);
   };
 
   const statusText =
     playback === "playing" && currentIndex >= 0
-      ? "Escuchando " + (currentIndex + 1) + " de " + items.length
+      ? "Escuchando " +
+        (currentIndex + 1) +
+        " de " +
+        items.length
       : playback === "paused"
         ? "Audio pausado"
         : playback === "finished"
@@ -202,14 +296,20 @@ export default function ListenOrder() {
           : "";
 
   if (!ready) {
-    return <div className={styles.loading}>Preparando el pedido…</div>;
+    return (
+      <div className={styles.loading}>
+        Preparando el pedido…
+      </div>
+    );
   }
 
   if (items.length === 0) {
     return (
       <div className={styles.empty}>
         <strong>Este enlace no contiene productos</strong>
-        <p>Pedile al remitente que vuelva a generar el pedido.</p>
+        <p>
+          Pedile al remitente que vuelva a generar el pedido.
+        </p>
       </div>
     );
   }
@@ -218,8 +318,14 @@ export default function ListenOrder() {
     return (
       <div className={styles.unsupported}>
         <strong>No pudimos iniciar la voz</strong>
-        <p>Podés leer la lista completa debajo desde otro navegador.</p>
-        <OrderList items={items} currentIndex={-1} />
+        <p>
+          Podés leer la lista completa debajo desde otro
+          navegador.
+        </p>
+        <OrderList
+          items={items}
+          currentIndex={-1}
+        />
       </div>
     );
   }
@@ -240,6 +346,7 @@ export default function ListenOrder() {
             alt=""
             aria-hidden="true"
           />
+
           {playback === "idle"
             ? "Escuchar"
             : playback === "finished"
@@ -252,10 +359,16 @@ export default function ListenOrder() {
             className={styles.secondaryButton}
             type="button"
             onClick={togglePause}
-            disabled={playback !== "playing" && playback !== "paused"}
+            disabled={
+              playback !== "playing" &&
+              playback !== "paused"
+            }
           >
-            {playback === "paused" ? "Continuar" : "Pausar"}
+            {playback === "paused"
+              ? "Continuar"
+              : "Pausar"}
           </button>
+
           <button
             className={styles.secondaryButton}
             type="button"
@@ -268,28 +381,37 @@ export default function ListenOrder() {
 
         <div className={styles.ratePicker}>
           <span>Velocidad del dictado</span>
+
           <div className={styles.rateOptions}>
             <button
               className={styles.rateButton}
-              data-active={rate === 0.72 || undefined}
+              data-active={
+                rate === 0.72 || undefined
+              }
               type="button"
               aria-pressed={rate === 0.72}
               onClick={() => changeRate(0.72)}
             >
               Despacio
             </button>
+
             <button
               className={styles.rateButton}
-              data-active={rate === 0.88 || undefined}
+              data-active={
+                rate === 0.88 || undefined
+              }
               type="button"
               aria-pressed={rate === 0.88}
               onClick={() => changeRate(0.88)}
             >
               Normal
             </button>
+
             <button
               className={styles.rateButton}
-              data-active={rate === 1 || undefined}
+              data-active={
+                rate === 1 || undefined
+              }
               type="button"
               aria-pressed={rate === 1}
               onClick={() => changeRate(1)}
@@ -299,12 +421,18 @@ export default function ListenOrder() {
           </div>
         </div>
 
-        <p className={styles.status} aria-live="polite">
+        <p
+          className={styles.status}
+          aria-live="polite"
+        >
           {statusText}
         </p>
       </div>
 
-      <OrderList items={items} currentIndex={currentIndex} />
+      <OrderList
+        items={items}
+        currentIndex={currentIndex}
+      />
     </>
   );
 }
@@ -324,10 +452,15 @@ function OrderSection({
     <section className={styles.listSection}>
       <div className={styles.listHeading}>
         <h2>{title}</h2>
+
         <span>
-          {items.length} {items.length === 1 ? "seleccionado" : "seleccionados"}
+          {items.length}{" "}
+          {items.length === 1
+            ? "seleccionado"
+            : "seleccionados"}
         </span>
       </div>
+
       <ol className={styles.orderList}>
         {items.map((item, index) => {
           const absoluteIndex = offset + index;
@@ -335,11 +468,23 @@ function OrderSection({
           return (
             <li
               className={styles.orderItem}
-              data-active={currentIndex === absoluteIndex || undefined}
-              key={item.kind + "::" + item.item}
+              data-active={
+                currentIndex === absoluteIndex ||
+                undefined
+              }
+              key={
+                item.kind +
+                "::" +
+                item.item
+              }
             >
-              <span className={styles.flavorName}>{item.item}</span>
-              <span className={styles.bucketCount}>{itemUnit(item)}</span>
+              <span className={styles.flavorName}>
+                {item.item}
+              </span>
+
+              <span className={styles.bucketCount}>
+                {itemUnit(item)}
+              </span>
             </li>
           );
         })}
@@ -355,8 +500,13 @@ function OrderList({
   items: ListenItem[];
   currentIndex: number;
 }) {
-  const flavors = items.filter((item) => item.kind === "flavor");
-  const envases = items.filter((item) => item.kind === "packaging");
+  const flavors = items.filter(
+    (item) => item.kind === "flavor",
+  );
+
+  const envases = items.filter(
+    (item) => item.kind === "packaging",
+  );
 
   return (
     <>
@@ -368,6 +518,7 @@ function OrderList({
           offset={0}
         />
       )}
+
       {envases.length > 0 && (
         <OrderSection
           title="Envases"
