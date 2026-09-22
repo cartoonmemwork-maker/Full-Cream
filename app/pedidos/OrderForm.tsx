@@ -153,7 +153,7 @@ export default function OrderForm() {
     if (customerCode.trim()) lines.push(`*Código N°:* ${customerCode.trim()}`);
 
     if (selectedFlavorGroups.length > 0) {
-      lines.push("", "*BALDES DE 15 LITROS*");
+      lines.push("", "*BALDES DE 10 LITROS*");
 
       selectedFlavorGroups.forEach((group) => {
         lines.push("", `*${group.name.toUpperCase()}*`);
@@ -261,7 +261,7 @@ export default function OrderForm() {
         <span>02</span>
         <div>
           <h2>Elegí las cantidades</h2>
-          <p>Cada unidad de sabor corresponde a un balde de 15 litros.</p>
+          <p>Cada unidad de sabor corresponde a un balde de 10 litros.</p>
         </div>
       </div>
 
