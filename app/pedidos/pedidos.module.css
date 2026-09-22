@@ -45,7 +45,7 @@
 
 .orderHeroHeading {
   display: grid;
-  max-width: 940px;
+  max-width: 820px;
   grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 2rem;
@@ -67,8 +67,6 @@
 .orderTruck {
   width: clamp(10rem, 19vw, 14rem);
   height: auto;
-  flex: 0 0 auto;
-  margin-right: 1rem;
   color: white;
   animation: order-truck-arrival 650ms cubic-bezier(0.22, 1, 0.36, 1) 100ms both;
 }
@@ -619,7 +617,6 @@
 
   .orderTruck {
     width: clamp(6.2rem, 28vw, 8rem);
-    margin-right: 0.25rem;
   }
 
   .customerCard {
@@ -713,7 +710,6 @@
 
 @media (max-width: 390px) {
   .orderHeroHeading {
-    grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.25rem;
   }
 
@@ -723,7 +719,6 @@
 
   .orderTruck {
     width: clamp(6.2rem, 29vw, 7rem);
-    margin-right: 0;
   }
 
   .cardHeading,
