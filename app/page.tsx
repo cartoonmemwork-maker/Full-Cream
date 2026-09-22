@@ -295,7 +295,7 @@ export default function Home() {
                   </p>
                   <h3>Armá tu pedido online</h3>
                   <p>
-                    Seleccioná la cantidad de baldes de 15 litros y te preparamos el
+                    Seleccioná la cantidad de baldes de 10 litros y te preparamos el
                     mensaje para enviarlo por WhatsApp.
                   </p>
                 </div>
