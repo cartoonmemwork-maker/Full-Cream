@@ -5,11 +5,11 @@ const seoDescription =
   "Helados por mayor con más de 60 sabores. Equipamos tu local y te ayudamos a abrir tu heladería desde nuestra fábrica en Villa Bosch.";
 const shareDescription =
   "Fabricamos helados y te ayudamos a equipar tu local. Más de 60 sabores para tu heladería, desde el primer día.";
-const shareTitle = "Full Cream | Más de 60 sabores";
+const shareTitle = "Full Cream | Fábrica de helados";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://fullcream.online"),
-  title: "Fábrica de Helados por Mayor | Full Cream",
+  title: "Full Cream | Fábrica de Helados por Mayor",
   description: seoDescription,
   applicationName: "Full Cream",
   authors: [{ name: "Full Cream" }],
