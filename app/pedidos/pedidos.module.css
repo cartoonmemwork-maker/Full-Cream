@@ -619,7 +619,7 @@
   }
 
   .orderTruck {
-    width: clamp(6.2rem, 28vw, 8rem);
+    width: clamp(7rem, 32vw, 9rem);
     height: auto;
     margin: 0 auto;
   }
@@ -724,7 +724,7 @@
   }
 
   .orderTruck {
-    width: clamp(6.2rem, 29vw, 7rem);
+    width: clamp(6.8rem, 32vw, 8rem);
     margin: 0 auto;
   }
 
