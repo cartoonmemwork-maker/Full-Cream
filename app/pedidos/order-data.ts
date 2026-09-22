@@ -110,6 +110,7 @@ export const packaging: readonly string[] = [
   "Cucurucho",
   "Servilletas",
   "Cucharitas",
+  "Cucharitas Sundae",
   "Bolsitas Chicas",
   "Bolsitas Grandes",
   "Salsas",
