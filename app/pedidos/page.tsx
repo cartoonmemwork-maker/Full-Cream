@@ -50,7 +50,7 @@ export default function OrdersPage() {
               <OrderTruckIcon className={styles.orderTruck} />
             </div>
             <p>
-              Seleccioná la cantidad de baldes de 15 litros y los envases que necesitás.
+              Seleccioná la cantidad de baldes de 10 litros y los envases que necesitás.
               Al finalizar, preparamos el mensaje para enviarlo por WhatsApp.
             </p>
           </div>
