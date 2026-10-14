@@ -89,6 +89,7 @@ export const flavorGroups: readonly OrderGroup[] = [
       "Tofi",
       "Choco Pistacho",
       "Choco blanco pistacho",
+      "Chocotorta", 
     ],
   },
 ] as const;
