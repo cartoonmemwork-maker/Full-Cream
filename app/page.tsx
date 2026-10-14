@@ -79,6 +79,7 @@ const flavors = [
       "Chocolate pistacho",
       "Chocolate Rocher",
       "Chocolate Shot",
+      "Chocotorta", 
       "Crema rusa",
       "Dulce bombón",
       "Dulce de leche con nuez",
@@ -98,6 +99,7 @@ const flavors = [
 const newFlavors = new Set([
   "Chocolate blanco pistacho",
   "Chocolate pistacho",
+  "Chocotorta", 
 ]);
 
 const structuredData = {
